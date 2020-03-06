@@ -1,11 +1,14 @@
 import {
   SET_IS_LOADING,
-  SET_MOVIES
+  SET_MOVIES,
+  SET_MOVIE_BY_ID
 } from './actionsTypes'
 
 const initialState = {
   isLoading: false,
-  movies: []
+  movies: [],
+  movieDetail: {},
+  dataAlert: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +22,11 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       movies: [...state.movies, ...action.movies]
+    }
+  case SET_MOVIE_BY_ID:
+    return {
+      ...state,
+      movieDetail: action.movieDetail
     }
   default:
     return state
