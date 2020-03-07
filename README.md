@@ -4,7 +4,7 @@ gfi movies permite a los usuarios listar películas del api rest http://www.omdb
 
 ## Getting Started
 
-1. Ejecute npm run install
+1. Ejecute npm install
 2. Ejecute npm start
 3. Inicie sesión con usuario JOSEROJASME Y contraseña jose1234
 
@@ -19,4 +19,6 @@ gfi movies permite a los usuarios listar películas del api rest http://www.omdb
 * [WebPack] (https://webpack.js.org/) Empaquetador de módulos
 * [Axios] (https://www.npmjs.com/package/axios) Peticiones
 
+### Prerequisites
 
+Node js
