@@ -1,6 +1,3 @@
-/* eslint react/jsx-props-no-spreading: 0 */
-/* eslint react/destructuring-assignment: 0 */
-
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import MuiDialogActions from '@material-ui/core/DialogActions'
@@ -43,7 +40,7 @@ function DialogDetail(props) {
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={()=>onClick()} color="primary">
-            Save changes
+            CERRAR
           </Button>
         </DialogActions>
       </Dialog>

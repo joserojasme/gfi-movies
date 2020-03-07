@@ -1,6 +1,4 @@
 /* eslint react/destructuring-assignment: 0 */
-/* eslint no-debugger: 0 */
-/* eslint semi: 0 */
 import React, { Component } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'

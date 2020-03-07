@@ -1,5 +1,13 @@
 # gfi-movies
 
+gfi movies permite a los usuarios listar películas del api rest http://www.omdbapi.com/ y ver su detalle, además permite buscar por título y agregar películas a un listado de favoritos.
+
+## Getting Started
+
+1. Ejecute npm run install
+2. Ejecute npm start
+3. Inicie sesión con usuario JOSEROJASME Y contraseña jose1234
+
 ## Built With
 * [ReactJS] (https://es.reactjs.org/) - La librearía JS Utilizada
 * [ReactRouter] (https://reacttraining.com/react-router/web/guides/quick-start) - Ruteo de la aplicación
@@ -11,8 +19,4 @@
 * [WebPack] (https://webpack.js.org/) Empaquetador de módulos
 * [Axios] (https://www.npmjs.com/package/axios) Peticiones
 
-## Getting Started
 
-1. Ejecute npm run install
-2. Ejecute npm start
-3. Inicie sesión con usuario JOSEROJASME Y contraseña jose1234

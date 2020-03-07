@@ -11,19 +11,23 @@ import React, { useState } from 'react'
 import * as Amplify from '../../network/cognitoAWS'
 import { useStyles } from './styles'
 
-function AppBarSearch() {
+function AppBarSearch(props) {
 
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
   const [titleSearch, setTitleSearch] = useState('')
-  const [page, setPage] = useState(1)
 
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
-  const handleSubmit = evt => {
-    evt.preventDefault()
+  const handleSubmit = event => {
+    event.preventDefault()
+  }
+
+  const handleChange = (event) =>{
+    setTitleSearch(event.target.value)
+    props.setMovie(event.target.value)
   }
 
   const handleProfileMenuOpen = event => {
@@ -84,7 +88,7 @@ function AppBarSearch() {
                 }}
                 value={titleSearch}
                 inputProps={{ 'aria-label': 'search' }}
-                onChange={e => setTitleSearch(e.target.value)}
+                onChange={handleChange}
               />
             </form>
           </div>

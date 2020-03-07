@@ -1,5 +1,5 @@
-/* eslint no-sequences: 0 */
-import { SET_IS_LOADING,
+import {
+  SET_IS_LOADING,
   SET_MOVIES,
   SET_MOVIE_BY_ID,
   SET_DATA_ALERT,
@@ -43,53 +43,38 @@ const setFavoritesMovies = favoritesMovies => ({
 // thunks
 export const fetchSuggestMovies = dispatch => async (page) => {
   let suggestMovies
-  const arrayPages = [1,2,3,4,5]
-  try {
-    dispatch(setIsLoading(true))
-    if(!page){
-      arrayPages.forEach(async element => {
-        suggestMovies = await getSuggestMovies(element)
-        dispatch(setSuggestMovies(suggestMovies.Search))
-      })
-    }else{
-      suggestMovies = await getSuggestMovies(page)
+  const arrayPages = [1, 2, 3, 4, 5]
+  dispatch(setIsLoading(true))
+  if (!page) {
+    arrayPages.forEach(async element => {
+      suggestMovies = await getSuggestMovies(element)
       dispatch(setSuggestMovies(suggestMovies.Search))
-    }
-    dispatch(setIsLoading(false))
-  } catch{
-    dispatch(setIsLoading(false))
+    })
+  } else {
+    suggestMovies = await getSuggestMovies(page)
+    dispatch(setSuggestMovies(suggestMovies.Search))
   }
+  dispatch(setIsLoading(false))
+
 }
 
-export const fetchMovies = dispatch => async (title, page) => {
-  let movies
-  try {
-    dispatch(setIsLoading(true))
-    movies = await getMovies(title, page)
+export const fetchMovies = dispatch => async (title) => {
+  const movies = await getMovies(title)
+  if (movies.Response === 'True') {
     dispatch(setMovies(movies.Search))
-    dispatch(setIsLoading(false))
-  } catch{
-    dispatch(setIsLoading(false))
+  } else {
+    dispatch(setMovies([]))
   }
 }
 
 export const fetchMoviesDetail = dispatch => async imdbID => {
-  let movie
-  try {
-    dispatch(setIsLoading(true))
-    movie = await getMovieById(imdbID)
-    dispatch(setMovie(movie))
-    dispatch(setIsLoading(false))
-  } catch{
-    dispatch(setIsLoading(false))
-  }
+  dispatch(setIsLoading(true))
+  const movie = await getMovieById(imdbID)
+  dispatch(setMovie(movie))
+  dispatch(setIsLoading(false))
 }
 
 export const fetchFavoritesMovies = dispatch => async () => {
-  try {
-    const favoritesMovies = await JSON.parse(localStorage.getItem(nameStorageFavorites))
-    dispatch(setFavoritesMovies(favoritesMovies))
-  } catch{
-    dispatch(setIsLoading(false))
-  }
+  const favoritesMovies = await JSON.parse(localStorage.getItem(nameStorageFavorites))
+  dispatch(setFavoritesMovies(favoritesMovies))
 }

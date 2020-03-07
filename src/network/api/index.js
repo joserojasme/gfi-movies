@@ -12,7 +12,7 @@ export const getSuggestMovies = async (page) =>{
   }
 }
 
-export const getMovies = async (title, page) =>{
+export const getMovies = async (title, page = 1) =>{
   try{
     const { data } = await request(`/?apikey=${config.apiKey}&s=${title}&page=${page}`)
     return data
