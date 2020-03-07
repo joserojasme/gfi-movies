@@ -1,8 +1,4 @@
-/* eslint react/destructuring-assignment: 0 */
-/* eslint array-callback-return: 0 */
-/* eslint consistent-return: 0 */
-
-import React from 'react'
+import React, { useState } from 'react'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
@@ -10,15 +6,23 @@ import IconButton from '@material-ui/core/IconButton'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import { useStyles } from './styles'
 import config from '../../config/constants'
+import Dialog from '../Dialog'
 
 const nameStorageFavorites = 'favoritesMovies'
 const gfiImage = 'https://aecconsultoras.com/wp-content/uploads/2020/01/logo-asociados-gfi.jpg'
 
 export default function SingleLineGridList(props) {
+  const [open, setOpen] = useState(false)
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   const classes = useStyles()
 
   const handleClick = async imdbID => {
     await props.setMovie(imdbID)
+    setOpen(true)
   }
 
   const handleClickAddFavorite = async (movie) => {
@@ -53,16 +57,17 @@ export default function SingleLineGridList(props) {
         {props.data.map(item => {
           if (item.Type === props.type) {
             return (
-              <GridListTile key={item.imdbID} onClick={() => handleClick(item.imdbID)}>
-                <img src={item.Poster === 'N/A' ? gfiImage : item.Poster} alt={item.Title} />
+              <GridListTile key={item.imdbID}>
+                <img src={item.Poster === 'N/A' ? gfiImage : item.Poster} alt={item.Title} onClick={() => handleClick(item.imdbID)} />
                 <GridListTileBar
                   title={`${item.Title.substring(0, 15)}...`}
                   classes={{
                     root: classes.titleBar,
                     title: classes.title,
                   }}
+                  onClick={() => handleClickAddFavorite(item)}
                   actionIcon={
-                    <IconButton onClick={() => handleClickAddFavorite(item)} aria-label={`star ${item.Title.substring(1, 15)}`}>
+                    <IconButton aria-label={`star ${item.Title.substring(1, 15)}`}>
                       <StarBorderIcon className={classes.title} />
                     </IconButton>
                   }
@@ -73,16 +78,17 @@ export default function SingleLineGridList(props) {
 
           if (props.type === config.favorites) {
             return (
-              <GridListTile key={`f${item.imdbID}`} onClick={() => handleClick(item.imdbID)}>
-                <img src={item.Poster === 'N/A' ? gfiImage : item.Poster} alt={item.Title} />
+              <GridListTile key={`f${item.imdbID}`}>
+                <img src={item.Poster === 'N/A' ? gfiImage : item.Poster} alt={item.Title} onClick={() => handleClick(item.imdbID)}/>
                 <GridListTileBar
                   title={`${item.Title.substring(0, 15)}...`}
                   classes={{
                     root: classes.titleBar,
                     title: classes.title,
                   }}
+                  onClick={() => handleClickAddFavorite(item)}
                   actionIcon={
-                    <IconButton onClick={() => handleClickAddFavorite(item)} aria-label={`star ${item.Title.substring(1, 15)}`}>
+                    <IconButton aria-label={`star ${item.Title.substring(1, 15)}`}>
                       <StarBorderIcon className={classes.title} />
                     </IconButton>
                   }
@@ -92,6 +98,15 @@ export default function SingleLineGridList(props) {
           }
         })}
       </GridList>
+      {open &&
+        <Dialog open={open} onClick={handleClose} movieDetail={props.movieDetail} />
+      }
     </div>
   )
 }
+
+/* eslint react/destructuring-assignment: 0 */
+/* eslint array-callback-return: 0 */
+/* eslint consistent-return: 0 */
+/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
