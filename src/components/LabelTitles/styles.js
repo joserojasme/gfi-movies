@@ -8,7 +8,7 @@ export const LabelTitle = styled.label`
         width: 100%;
         color: gray;
         text-align: center;
-        margin:0;
-        padding:0;
-        font-size:1.5rem;
+        margin:50;
+        padding:10;
+        font-size:2rem;
 `;

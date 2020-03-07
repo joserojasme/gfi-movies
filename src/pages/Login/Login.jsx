@@ -88,7 +88,7 @@ class Login extends Component {
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
-            <LabelTitle text='Iniciar sesión' />
+            <LabelTitle text='gfi Movies' />
             <form onSubmit={this.handleSubmit}>
               <TextField
                 variant='outlined'

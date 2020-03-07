@@ -4,39 +4,33 @@
 /* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 
 import React, { useEffect, useState } from 'react'
-import * as Amplify from '../../network/cognitoAWS'
+import SingleLineGridList from '../../components/SingleLineGridList'
+import AppBarSearch from '../../components/AppBarSearch'
+import LabelTitle from '../../components/LabelTitles'
+import config from '../../config/constants'
 
 function Home(props) {
-  const [title, setTitle] = useState('cars')
-  const [page, setPage] = useState(1)
-
   useEffect(() => {
     const fetch = async () => {
-      await props.setMovies(title, page)
+      await props.setSuggestMovies()
     }
     fetch()
   }, [])
 
-  const handleSubmit = evt => {
-    evt.preventDefault()
-    fetch()
-  }
-
-  const handleClick = async imdbID =>{
-    props.setMovie(imdbID)
-  }
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input type='text' onChange={e => setTitle(e.target.value)} />
-      </form>
-      <ul>
-        {props.movies.map(item => {
-          return (<li key={item.imdbID} onClick={()=> handleClick(item.imdbID)}>{item.Title}</li>)
-        })}
-      </ul>
-      <input type="button" onClick={()=>Amplify.signOut()} />
+      <AppBarSearch />
+      {props.suggestMovies.length > 0 &&
+      <div>
+        <LabelTitle text='Películas' />
+        <SingleLineGridList data={props.suggestMovies} type={config.movie} />
+        <LabelTitle text='Series' />
+        <SingleLineGridList data={props.suggestMovies} type={config.series} />
+        <LabelTitle text='Episodios' />
+        <SingleLineGridList data={props.suggestMovies} type={config.episode} />
+      </div>
+      }
+
     </div>
   )
 }

@@ -2,11 +2,13 @@ import {
   SET_IS_LOADING,
   SET_MOVIES,
   SET_MOVIE_BY_ID,
-  SET_DATA_ALERT
+  SET_DATA_ALERT,
+  SET_SUGGEST_MOVIES
 } from './actionsTypes'
 
 const initialState = {
   isLoading: false,
+  suggestMovies: [],
   movies: [],
   movieDetail: {},
   dataAlert: {}
@@ -19,10 +21,15 @@ const reducer = (state = initialState, action) => {
       ...state,
       isLoading: action.isLoading
     }
+  case SET_SUGGEST_MOVIES:
+    return {
+      ...state,
+      suggestMovies: [...state.suggestMovies, ...action.suggestMovies]
+    }
   case SET_MOVIES:
     return {
       ...state,
-      movies: [...state.movies, ...action.movies]
+      movies: action.movies
     }
   case SET_MOVIE_BY_ID:
     return {
