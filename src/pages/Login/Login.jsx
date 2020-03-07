@@ -16,46 +16,58 @@ import { useStyles } from './styles'
 import LabelTitle from '../../components/LabelTitles'
 import SpinnerModal from '../../components/Spinner'
 
+const initialState = {
+  username: 'JOSEROJASME',
+  password: 'jose1234'
+}
+
 class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: 'JOSEROJASME',
-      password: 'jose1234',
-      msn: '',
-      code: ERROR,
-      alertIsOpen: false,
+      ...initialState
     }
   }
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault()
-    this.setState({ alertIsOpen: false }, () => {
-      Amplify.signIn({ ...this.state }, this.props.setIsLoading).then(res => {
-        this.validateResponse(res)
-        this.setState({ password: '', username: '' })
-      })
-    })
+    this.showAlert(false)
+    const response = await Amplify.signIn({ ...this.state }, this.props.setIsLoading)
+    this.validateResponse(response)
+    this.setState({ ...initialState })
   }
 
   validateResponse = (res) => {
     const codeDefault = ERROR
+    const alertObject = {}
+    alertObject.code = codeDefault
+    alertObject.open = true
     switch (res.code) {
     case Amplify.errorNotAuthorizedException:
-      this.setState({ msn: Amplify.notAuthorizedException, alertIsOpen: true, code: codeDefault })
+      alertObject.message = Amplify.notAuthorizedException
       break
     case Amplify.errorUserNotFoundException:
-      this.setState({ msn: Amplify.userNotFoundException, alertIsOpen: true, code: codeDefault })
+      alertObject.message = Amplify.userNotFoundException
       break
     case Amplify.SUCCESS:
-      this.setState({ msn: res.data.msn, alertIsOpen: true, code: ALERT_SUCCESS })
+      alertObject.message = res.data.msn
+      alertObject.code = ALERT_SUCCESS
       break
-    case Amplify.GENERAL_ERROR:
-      this.setState({ msn: res.data.msn, alertIsOpen: true, code: codeDefault })
+    case Amplify.ERROR_GENERAL:
+      alertObject.message = res.data.msn
       break
     default:
       window.location.replace('/home')
       break
+    }
+    this.showAlert(true, alertObject)
+  }
+
+  showAlert = (type, data) =>{
+    if(type){
+      this.props.setDataAlert(data)
+    }else{
+      this.props.setDataAlert({open:false})
     }
   }
 
@@ -65,19 +77,14 @@ class Login extends Component {
 
   render() {
     const { classes } = this.props
-    const { msn,
-      alertIsOpen,
-      username,
-      password,
-      code,
-    } = this.state
+    const { username, password } = this.state
 
     return (
       <div>
         <Container component='main' maxWidth='xs'>
           <CssBaseline />
           <div className={classes.paper}>
-            <Alerts code={code} msn={msn} open={alertIsOpen} />
+            <Alerts />
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>

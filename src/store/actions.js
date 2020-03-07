@@ -1,6 +1,8 @@
 import { SET_IS_LOADING,
   SET_MOVIES,
-  SET_MOVIE_BY_ID } from './actionsTypes'
+  SET_MOVIE_BY_ID,
+  SET_DATA_ALERT
+} from './actionsTypes'
 import { getMovies, getMovieById } from '../network/api'
 
 export const setIsLoading = isLoading => ({
@@ -16,6 +18,11 @@ const setMovies = movies => ({
 const setMovie = movieDetail => ({
   type: SET_MOVIE_BY_ID,
   movieDetail
+})
+
+export const setDataAlert = dataAlert => ({
+  type: SET_DATA_ALERT,
+  dataAlert
 })
 
 // thunks

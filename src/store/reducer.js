@@ -1,7 +1,8 @@
 import {
   SET_IS_LOADING,
   SET_MOVIES,
-  SET_MOVIE_BY_ID
+  SET_MOVIE_BY_ID,
+  SET_DATA_ALERT
 } from './actionsTypes'
 
 const initialState = {
@@ -27,6 +28,11 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       movieDetail: action.movieDetail
+    }
+  case SET_DATA_ALERT:
+    return {
+      ...state,
+      dataAlert: action.dataAlert
     }
   default:
     return state

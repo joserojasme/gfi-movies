@@ -1,24 +1,13 @@
-import React from 'react'
-import Alert from '@material-ui/lab/Alert'
+import Alerts from './Alerts'
+import { connect } from 'react-redux'
 
 export const ERROR = 'error'
 export const WARNING = 'warning'
 export const INFO = 'info'
 export const ALERT_SUCCESS = 'success'
 
-function Alerts(props) {
-  function validateTypeAlert(data) {
-    const { code, msn, open } = data
-    if (open)
-      return <Alert variant="outlined" severity={code}>{msn}</Alert>
-    return <div />
-  }
+const mapStateToProps = state => ({
+  ...state
+})
 
-  return (
-    <div>
-      {validateTypeAlert({ ...props })}
-    </div>
-  )
-}
-
-export default Alerts
+export default connect(mapStateToProps)(Alerts)

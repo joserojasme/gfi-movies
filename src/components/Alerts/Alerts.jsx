@@ -3,9 +3,9 @@ import Alert from '@material-ui/lab/Alert'
 
 function Alerts(props) {
   function validateTypeAlert(data) {
-    const { code, msn, open } = data
+    const { code, message, open } = data.dataAlert
     if (open)
-      return <Alert variant="outlined" severity={code}>{msn}</Alert>
+      return <Alert variant='outlined' severity={code}>{message}</Alert>
     return <div />
   }
 

@@ -9,7 +9,6 @@ export const errorUserNotFoundException = 'UserNotFoundException'
 export const userNotFoundException = 'El usuario no existe'
 
 export const SUCCESS = 'Success'
-export const GENERAL_ERROR = 'Error'
 export const ERROR_GENERAL = 'Ocurrio un error intentando realizar el proceso'
 
 export async function signIn(data, setIsLoading) {

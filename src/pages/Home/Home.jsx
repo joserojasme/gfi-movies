@@ -11,12 +11,11 @@ function Home(props) {
   const [page, setPage] = useState(1)
 
   useEffect(() => {
+    const fetch = async () => {
+      await props.setMovies(title, page)
+    }
     fetch()
   }, [])
-
-  const fetch = async () => {
-    await props.setMovies(title, page)
-  }
 
   const handleSubmit = evt => {
     evt.preventDefault()
