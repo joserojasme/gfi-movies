@@ -2,6 +2,8 @@
 
 gfi movies permite a los usuarios listar películas del api rest http://www.omdbapi.com/ y ver su detalle, además permite buscar por título y agregar películas a un listado de favoritos.
 
+gfi movies tiene seguridad con un login que se valida contra un grupo de usuarios de AWS cognito, por favor inicie sesión con el usuario: JOSEROJASME y contraseña: jose1234
+
 ## Getting Started
 
 1. Ejecute npm install
