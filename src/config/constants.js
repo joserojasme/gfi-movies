@@ -8,7 +8,8 @@ const config = {
   userPoolId: 'us-east-2_4HBKMqAkS',
   movie: 'movie',
   series: 'series',
-  episode: 'episode'
+  episode: 'episode',
+  favorites: 'favorites'
 }
 
 export default config

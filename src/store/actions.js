@@ -3,9 +3,12 @@ import { SET_IS_LOADING,
   SET_MOVIES,
   SET_MOVIE_BY_ID,
   SET_DATA_ALERT,
-  SET_SUGGEST_MOVIES
+  SET_SUGGEST_MOVIES,
+  SET_FAVORITES_MOVIES
 } from './actionsTypes'
 import { getMovies, getMovieById, getSuggestMovies } from '../network/api'
+
+const nameStorageFavorites = 'favoritesMovies'
 
 export const setIsLoading = isLoading => ({
   type: SET_IS_LOADING,
@@ -30,6 +33,11 @@ const setMovie = movieDetail => ({
 export const setDataAlert = dataAlert => ({
   type: SET_DATA_ALERT,
   dataAlert
+})
+
+const setFavoritesMovies = favoritesMovies => ({
+  type: SET_FAVORITES_MOVIES,
+  favoritesMovies
 })
 
 // thunks
@@ -72,6 +80,15 @@ export const fetchMoviesDetail = dispatch => async imdbID => {
     movie = await getMovieById(imdbID)
     dispatch(setMovie(movie))
     dispatch(setIsLoading(false))
+  } catch{
+    dispatch(setIsLoading(false))
+  }
+}
+
+export const fetchFavoritesMovies = dispatch => async () => {
+  try {
+    const favoritesMovies = await JSON.parse(localStorage.getItem(nameStorageFavorites))
+    dispatch(setFavoritesMovies(favoritesMovies))
   } catch{
     dispatch(setIsLoading(false))
   }

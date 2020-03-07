@@ -11,26 +11,37 @@ import config from '../../config/constants'
 
 function Home(props) {
   useEffect(() => {
-    const fetch = async () => {
+    const fetchSuggestMovies = async () => {
       await props.setSuggestMovies()
     }
-    fetch()
+    fetchSuggestMovies()
+  }, [])
+
+  useEffect(() => {
+    const getFavoritesMovies = async () => {
+      await props.setFavoritesMovies()
+    }
+    getFavoritesMovies()
   }, [])
 
   return (
     <div>
       <AppBarSearch />
       {props.suggestMovies.length > 0 &&
-      <div>
-        <LabelTitle text='Películas' />
-        <SingleLineGridList data={props.suggestMovies} type={config.movie} />
-        <LabelTitle text='Series' />
-        <SingleLineGridList data={props.suggestMovies} type={config.series} />
-        <LabelTitle text='Episodios' />
-        <SingleLineGridList data={props.suggestMovies} type={config.episode} />
-      </div>
+        <div>
+          <LabelTitle text='Películas' />
+          <SingleLineGridList data={props.suggestMovies} type={config.movie} />
+          <LabelTitle text='Series' />
+          <SingleLineGridList data={props.suggestMovies} type={config.series} />
+        </div>
       }
-
+      {props.favoritesMovies !== null &&
+       props.favoritesMovies.length > 0 &&
+            <div>
+              <LabelTitle text='Favoritas' />
+              <SingleLineGridList data={props.favoritesMovies} type={config.favorites} />
+            </div>
+      }
     </div>
   )
 }

@@ -3,7 +3,8 @@ import {
   SET_MOVIES,
   SET_MOVIE_BY_ID,
   SET_DATA_ALERT,
-  SET_SUGGEST_MOVIES
+  SET_SUGGEST_MOVIES,
+  SET_FAVORITES_MOVIES
 } from './actionsTypes'
 
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
   suggestMovies: [],
   movies: [],
   movieDetail: {},
-  dataAlert: {}
+  dataAlert: {},
+  favoritesMovies: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -40,6 +42,11 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       dataAlert: action.dataAlert
+    }
+  case SET_FAVORITES_MOVIES:
+    return {
+      ...state,
+      favoritesMovies: action.favoritesMovies
     }
   default:
     return state
